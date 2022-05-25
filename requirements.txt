@@ -1,0 +1,15 @@
+mujoco-py<2.2,>=2.1
+torch~=1.11.0
+tianshou~=0.4.8
+setuptools~=61.2.0
+loguru~=0.6.0
+numpy~=1.21.6
+gym~=0.23.1
+sklearn~=0.0
+scikit-learn~=1.0.2
+tqdm~=4.64.0
+neorl~=0.3.0
+scipy~=1.7.3
+aim~=2.0.27
+ray~=1.12.0
+patchelf
