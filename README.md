@@ -3,7 +3,7 @@
 ---
 ## Requirement & Installation
 
-###Installation
+### Installation
 - Create a conda environment and install mujoco-py and mujoco210
   - Mujoco-py can be installed with the following command: pip install -U 'mujoco-py<2.2,>=2.1'
 - Install d4rl, which needs to be downloaded from https://github.com/rail-berkeley/d4rl
@@ -11,7 +11,7 @@
 - Install neorl
 - Install other dependencies: pip install -r requirements.txt
 
-###Requirement
+### Requirement
 - pytorch~=1.11.0
 - mujoco-py<2.2,>=2.1
 - torch~=1.11.0
