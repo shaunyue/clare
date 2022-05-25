@@ -8,8 +8,8 @@ seed = np.random.randint(1, 2022)
 
 use_limited_data = True
 only_expert = False
-diverse_data = 'd4rl-hopper-medium-v2'
-expert_data = 'd4rl-hopper-expert-v2'
+diverse_data = 'd4rl-halfcheetah-medium-v2'
+expert_data = 'd4rl-halfcheetah-expert-v2'
 num_diverse_data = 10000
 num_expert_data = 10000
 
