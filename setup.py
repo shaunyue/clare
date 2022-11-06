@@ -16,7 +16,6 @@ setup(
     author="SongyiGao",
     author_email="songyigao@gmail.com",
     python_requires=">=3.7",
-    py_modules=[],
     install_requires=[
         "aim==2.0.27",
         "fire",
