@@ -1,6 +1,5 @@
 # Conservative Model-Based Reward Learning (CLARE)
 
----
 
 ## Installation
 
@@ -32,7 +31,6 @@ pip install -e .
 pip install -e .
 ```
 
----
 
 ## Train & Evaluate CLARE
 
@@ -45,7 +43,6 @@ The tasks and datasets we train on can be selected through diverse_data and expe
 
 The average returns are saved in `result` directory.
 
----
 
 ## Results
 
