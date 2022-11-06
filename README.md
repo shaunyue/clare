@@ -1,36 +1,38 @@
 # Conservative Model-Based Reward Learning (CLARE)
 
 ---
-## Requirement & Installation
 
-### Installation
-- Create a conda environment and install mujoco-py and mujoco210
-  - Mujoco-py can be installed with the following command: pip install -U 'mujoco-py<2.2,>=2.1'
-- Install d4rl, which needs to be downloaded from https://github.com/rail-berkeley/d4rl
-  - Note that during installing d4rl, dm_control don't need to be installed, while mjrl requires installing additionally (with command: pip install git+Https://github.com/aravindr93/mjrl@master#egg=mjrl). These two lines of commands need to be commented out in the setup.py
-- Install neorl
-- Install other dependencies: pip install -r requirements.txt
+## Installation
 
-### Requirement
-- pytorch~=1.11.0
-- mujoco-py<2.2,>=2.1
-- torch~=1.11.0
-- fire
-- tianshou~=0.4.8
-- setuptools~=61.2.0
-- loguru~=0.6.0
-- numpy~=1.21.6
-- gym~=0.23.1
-- sklearn~=0.0
-- scikit-learn~=1.0.2
-- tqdm~=4.64.0
-- scipy~=1.7.3
-- aim~=2.0.27
-- ray~=1.12.0
-- patchelf
+### Download mujoco210
+```
+weget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
+unzip mujoco210-linux-x86_64.tar.gz
+mkdir ~/.mujoco
+mv mujoco210 ~/.mujoco
+```
+
+### Install D4RL
+```
+git clone https://github.com/rail-berkeley/d4rl
+cd d4rl
+# Comment out dm-control and mujoco-py in setup.py
+pip install -e .
+```
+
+### Install NeoRL
+```
+git clone https://agit.ai/Polixir/neorl.git
+cd neorl
+pip install -e .
+```
+
+### Install CLARE
+```
+pip install -e .
+```
 
 ---
-
 
 ## Train & Evaluate CLARE
 
@@ -43,6 +45,7 @@ The tasks and datasets we train on can be selected through diverse_data and expe
 
 The average returns are saved in `result` directory.
 
+---
 
 ## Results
 
