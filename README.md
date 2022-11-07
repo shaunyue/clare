@@ -16,7 +16,6 @@ mv mujoco210 ~/.mujoco
 # export MUJOCO_PY_MUJOCO_PATH=/root/.mujoco/mujoco210
 # export MUJOCO_KEY_PATH=$MUJOCO_KEY_PATH:/root/.mujoco
 source ~/.bashrc
-
 ```
 
 ### Install D4RL
