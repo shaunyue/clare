@@ -18,8 +18,9 @@ def run_algo(**kwargs):
 
     if 'medium' in algo_config["diverse_data"]:
         print("Diverse data type: medium\n")
-        if algo_config["num_expert_data"] < 1e4:
+        if algo_config["num_expert_data"] < 1e4 and algo_config["with_beta"]:
             algo_config["use_expert_behavior"] = False
+                  
 
     # Get diverse data
     train_buffer = load_d4rl_buffer(algo_config["diverse_data"])
