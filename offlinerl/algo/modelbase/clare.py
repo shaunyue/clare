@@ -802,8 +802,14 @@ class AlgoTrainer(BaseAlgo):
         expert_batch.to_torch(device=self.device)
         model_batch_obs_act = torch.cat([model_batch['obs'], model_batch['act']], dim=-1)
         model_reward = torch.mean(reward_function(model_batch_obs_act))
-        whole_batch_obs_act = torch.cat([whole_batch['obs'], whole_batch['act']], dim=-1)
-        whole_reward = torch.mean(reward_function(whole_batch_obs_act) * whole_batch['weight'])
+        
+        if self.args['with_beta']:
+            whole_batch_obs_act = torch.cat([whole_batch['obs'], whole_batch['act']], dim=-1)
+            whole_reward = torch.mean(reward_function(whole_batch_obs_act) * whole_batch['weight'])
+        else:
+            whole_batch_obs_act = torch.cat([whole_batch['obs'], whole_batch['act']], dim=-1)
+            whole_reward = torch.mean(reward_function(whole_batch_obs_act) * 0)
+        
         expert_batch_obs_act = torch.cat([expert_batch['obs'], expert_batch['act']], dim=-1)
         expert_reward = torch.mean(reward_function(expert_batch_obs_act))
         num_data = model_batch.shape[0] + whole_batch.shape[0]
