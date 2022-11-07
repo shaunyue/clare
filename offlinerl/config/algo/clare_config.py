@@ -67,12 +67,13 @@ max_iter = 10
 max_epoch = 500
 steps_per_epoch = 20
 steps_per_reward_update = 5
-output = 10
+output = 100
 init_step = 20
 late_start = 1
 
 use_clare_regularization = True
 regularization_weight = 0.25
+with_beta = True
 u = 0.5
 uncertainty_mode = 'aleatoric'  # Or 'disagreement'
 
