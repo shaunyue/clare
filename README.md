@@ -9,6 +9,14 @@ weget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux
 unzip mujoco210-linux-x86_64.tar.gz
 mkdir ~/.mujoco
 mv mujoco210 ~/.mujoco
+
+# Set environment path in ~/.bashrc
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
+# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/root/.mujoco/mujoco210/bin
+# export MUJOCO_PY_MUJOCO_PATH=/root/.mujoco/mujoco210
+# export MUJOCO_KEY_PATH=$MUJOCO_KEY_PATH:/root/.mujoco
+source ~/.bashrc
+
 ```
 
 ### Install D4RL
