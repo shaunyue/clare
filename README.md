@@ -5,7 +5,7 @@
 
 ### Download mujoco210
 ```
-weget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
+wget https://github.com/deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz
 unzip mujoco210-linux-x86_64.tar.gz
 mkdir ~/.mujoco
 mv mujoco210 ~/.mujoco
