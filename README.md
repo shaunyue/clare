@@ -46,7 +46,7 @@ To train the policy and reward function, run this command:
 ```train
 python train_d4rl.py --diverse_data='d4rl-halfcheetah-medium-v2' --expert_data='d4rl-halfcheetah-expert-v2' --u=0.5
 ```
-The tasks and datasets we train on can be selected through diverse_data and expert_data. The conservatism level is controlled by the value of u (between 0 and 1). Additionally, num_diverse_data and num_expert_data can be set to control the number of state-action pairs we use.
+The tasks and datasets we train on can be selected through diverse_data and expert_data. The conservatism level is controlled by the value of u (between 0 and 1). In addition, num_diverse_data and num_expert_data can be set to control the number of state-action pairs we use.
 
 The average returns are saved in `result` directory.
 
