@@ -67,7 +67,7 @@ max_iter = 10
 max_epoch = 500
 steps_per_epoch = 20
 steps_per_reward_update = 5
-output = 100
+output = 10
 init_step = 20
 late_start = 1
 
