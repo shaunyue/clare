@@ -15,7 +15,7 @@ from loguru import logger
 from tianshou.data import Batch
 from collections import OrderedDict
 from tqdm import tqdm
-
+import wandb
 
 is_with_reward = False
 
@@ -159,7 +159,8 @@ def algo_init(args):
         "eval" : args['sac_eval'],
         "gamma" : args['sac_gamma'],
         "tau" : args['sac_tau'],
-        "lr" : args['sac_lr']
+        "lr" : args['sac_lr'],
+        "device": args['device']
     }
     agent_sac = SAC(obs_shape, ac_shape, args_sac)
     log_alpha = torch.zeros(1, requires_grad=True, device=args['device'])
@@ -317,7 +318,7 @@ class SAC(object):
         self.action_range = [action_space.low.min(), action_space.high.max()]
         self.target_update_interval = args["target_update_interval"]
         self.automatic_entropy_tuning = args["automatic_entropy_tuning"]
-        self.device = torch.device("cuda")
+        self.device = torch.device(args['device'])
         self.critic = QNetwork(num_inputs, action_space.shape[0], args['hidden_size']).to(device=self.device)
         self.critic_optim = Adam(self.critic.parameters(), lr=args['lr'])
         self.critic_target = QNetwork(num_inputs, action_space.shape[0], args['hidden_size']).to(self.device)
@@ -581,7 +582,11 @@ class AlgoTrainer(BaseAlgo):
         self.device = args['device']
 
     def train(self, train_buffer=None, val_buffer=None, expert_buffer=None):
-        file = open('./result/' + self.args['diverse_data'][5:] + '.txt', mode='a')
+        run_config=dict(learing_rate=0.1,batch_size=2,epoch=80)
+
+        w_run = wandb.init(project="iclr_clare", entity="ameis-god")
+        w_run.config.update(run_config)
+        file = open('./result/' + self.args['diverse_data'][5:] +"_"+ self.args['expert_data'][5:] + str(self.args['num_diverse_data']) + "_" + str(self.args['num_expert_data']) + "_withbeta_" + str(self.args["with_beta"]) + '_2.txt', mode='a')
         whole_buffer = Batch.cat([train_buffer, expert_buffer])
         whole_buffer = SampleBatch(whole_buffer)
         transition = self.train_transition(whole_buffer)
@@ -590,7 +595,7 @@ class AlgoTrainer(BaseAlgo):
         num_data_small_uncertainty, pos_weight, neg_weigh = self.embed_weight(transition, whole_buffer, train_buffer, expert_buffer)
         for _ in range(self.args['max_iter']):
             self.iter += 1
-            model_buffer = self.train_policy(whole_buffer, val_buffer, transition, expert_buffer)
+            model_buffer = self.train_policy(whole_buffer, val_buffer, transition, expert_buffer,w_run)
             self.train_reward(transition, train_buffer, expert_buffer, model_buffer)
             print(f'\nAverage return: {self.rew_env}\n')
             file.write(str(self.all_result_env))
@@ -648,7 +653,7 @@ class AlgoTrainer(BaseAlgo):
         self.transition.set_select(indexes)
         return self.transition
 
-    def train_policy(self, train_buffer, _, transition, expert_buffer):
+    def train_policy(self, train_buffer, _, transition, expert_buffer,w_run):
         if self.use_dropout:
             self.reward_function.eval()
         real_batch_size = int(self.args['policy_batch_size'] * self.args['real_data_ratio'])
@@ -757,6 +762,7 @@ class AlgoTrainer(BaseAlgo):
                 res['critic loss'] = float(critic_loss)
                 res['actor loss'] = float(actor_loss)
                 self.all_result_env.append(res["Reward_Mean_Env"])
+                w_run.log({self.task_name + "_" + str(self.args["expert_data"]) + "_" + str(self.args["num_diverse_data"]) + "_" + str(self.args["num_expert_data"]) + "_withbeta_" + str(self.args["with_beta"]) + "_reward_1": float(avg_reward)})
                 self.rew_env.append(round(res["Reward_Mean_Env"], 1))
                 info = {'cri_loss': res['critic loss'],
                         'act_loss': res['actor loss'],
